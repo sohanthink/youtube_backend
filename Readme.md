@@ -1,1 +1,1 @@
-# an application combined in youtube and twitter
+# An application combined in youtube and twitter
