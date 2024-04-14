@@ -5,6 +5,8 @@ const asyncHandler = (requestHandler) => {
 };
 export { asyncHandler };
 
+// another way try catch ====================================
+
 // const asyncHandler = () => {}
 // const asyncHandler = (func) => () => {}
 // const asyncHandler = (func) => async () => {}
