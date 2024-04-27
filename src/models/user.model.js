@@ -27,7 +27,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String, // from cloudnary service
-      required: true,
+      // required: true,
     },
     coverImage: {
       type: String, // from cloudnary service
@@ -54,9 +54,12 @@ const userSchema = new Schema(
 userSchema.pre("save", function (next) {
   if (!this.isModified("password")) return next();
 
-  //   if the password field is saving then it will execute this portion
-  this.password = bcrypt.hash(this.password, 10);
-  next();
+  // Using arrow function to maintain the context of 'this'
+  bcrypt.hash(this.password, 10, (err, hash) => {
+    if (err) return next(err);
+    this.password = hash;
+    next();
+  });
 });
 
 // User Method for Password Verification
