@@ -143,8 +143,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .cookie("accesstoken", accessToken, options)
-        .cookie("refreshtoken", refreshToken, options)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json(
             new ApiResponse(
                 200,
@@ -176,8 +176,8 @@ const logoutUser = asyncHandler(async (req, res) => {
         secure: true,
     };
 
-    res.clearCookie("accesstoken", options);
-    res.clearCookie("refreshtoken", options);
+    res.clearCookie("accessToken", options);
+    res.clearCookie("refreshToken", options);
 
     res.status(200).json(new ApiResponse(200, {}, "User logged Out"));
 });
