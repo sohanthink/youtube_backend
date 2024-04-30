@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import mongoose from "mongoose";
 
 const genareteAccessAndRefreshToken = async (userid) => {
     try {
@@ -90,7 +91,7 @@ const registerUser = asyncHandler(async (req, res) => {
         username: username.toLowerCase(),
     });
 
-    const createdUser = User.findById(user._id).select(
+    const createdUser = await User.findById(user._id).select(
         "-password -refreshToken"
     );
 
@@ -158,9 +159,10 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-    req.user = activeUser;
+    const userid = req.user._id.toString();
     await User.findByIdAndUpdate(
-        activeUser._id,
+        userid,
+
         {
             $unset: {
                 refreshToken: 1, //remove the field from the document
@@ -168,16 +170,16 @@ const logoutUser = asyncHandler(async (req, res) => {
         },
         { new: true }
     );
-
+    // console.log(userid);
     const options = {
         httpOnly: true,
         secure: true,
     };
 
-    res.status(200)
-        .clearCookie("accessToken", options)
-        .clearCookie("refreshToken", options)
-        .json(new ApiResponse(200, "User logged Out"));
+    res.clearCookie("accesstoken", options);
+    res.clearCookie("refreshtoken", options);
+
+    res.status(200).json(new ApiResponse(200, {}, "User logged Out"));
 });
 
 export { registerUser, loginUser, logoutUser };
