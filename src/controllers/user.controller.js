@@ -241,4 +241,12 @@ const refreshAccessToken = asyncHandler(async (res, req) => {
     }
 });
 
+const changeCurrentPassword = asyncHandler(async (req, res) => {
+    // take old pass and new pass from user
+    //ifnd the exsisting user using jwt/req.user
+    // check passowrd
+    // save the new pass to the databse
+    //response
+});
+
 export { registerUser, loginUser, logoutUser, refreshAccessToken };
