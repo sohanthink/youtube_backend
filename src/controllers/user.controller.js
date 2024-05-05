@@ -249,7 +249,6 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     //response
 
     const { oldPassword, newPassword } = req.body;
-    console.log(oldPassword, newPassword);
 
     const user = await User.findById(req.user?._id);
 
@@ -269,9 +268,13 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 
 const getCurrentuser = asyncHandler(async (req, res) => {
     return res
-        .status(400)
+        .status(200)
         .json(new ApiResponse(200, req.user, "User feched successfully"));
 });
+
+// updateAccountDetails
+// updateUserAvatar
+// updateUserCoverImage
 
 export {
     registerUser,
