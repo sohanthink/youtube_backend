@@ -363,4 +363,5 @@ export {
     refreshAccessToken,
     changeCurrentPassword,
     getCurrentuser,
+    getUserChannelProfile,
 };
